@@ -3,18 +3,16 @@ package com.rewards.program.DTO;
 import java.util.Map;
 
 public class RewardSummaryDTO {
-
+	
 	private Long customerId;
 	private Map<String, Integer> monthlyPoints;
 	private int totalPoints;
-
 	public RewardSummaryDTO(Long customerId, Map<String, Integer> monthlyPoints, int totalPoints) {
 		super();
 		this.customerId = customerId;
 		this.monthlyPoints = monthlyPoints;
 		this.totalPoints = totalPoints;
-	}
-	
+	}	
 	public Long getCustomerId() {
 		return customerId;
 	}
@@ -33,6 +31,4 @@ public class RewardSummaryDTO {
 	public void setTotalPoints(int totalPoints) {
 		this.totalPoints = totalPoints;
 	}
-	
-	
 }

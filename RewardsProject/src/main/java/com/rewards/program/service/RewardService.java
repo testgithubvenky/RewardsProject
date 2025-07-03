@@ -14,14 +14,14 @@ import com.rewards.program.repository.TransactionRepository;
 
 @Service
 public class RewardService {
-
+	
 	@Autowired
 	private TransactionRepository transactionRepository;
 
 	public List<Transaction> getLastThreeMonthsTransactions(){
 		LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);
 		List<Transaction> transactions = transactionRepository.findByTransactionDateAfter(threeMonthsAgo);
-		if(transactions.isEmpty()) {
+		if(transactions.isEmpty() || null == transactions) {
 			throw new ResourceNotFoundException("No Transactions found in last three months");
 		}
 		return transactions;
@@ -29,7 +29,7 @@ public class RewardService {
 
 	public List<Transaction> getCustomerTransactions(Long customerId){
 		List<Transaction> transactions = transactionRepository.findByCustomerId(customerId);
-		if(transactions.isEmpty()) {
+		if(transactions.isEmpty() || null == transactions) {
 			throw new ResourceNotFoundException("No Transactions found for customerId :" + customerId);
 		}
 		return transactions;
@@ -39,8 +39,8 @@ public class RewardService {
 		LocalDate startDate = month.atDay(1);
 		LocalDate endDate = month.atEndOfMonth();
 		List <Transaction> transactions = transactionRepository.findByCustomerIdAndTransactionDateBetween(customerId, startDate, endDate);
-		if(transactions.isEmpty()) {
-			throw new ResourceNotFoundException("No Transactions found for customerId :" + customerId + "in" + month);
+		if(transactions.isEmpty() || null == transactions) {
+			throw new ResourceNotFoundException("No Transactions found for customerId : " + customerId + " in " + month);
 		}
 		return transactions;
 	}
@@ -50,11 +50,22 @@ public class RewardService {
 		Map<String, Integer> montlyPoints = new HashMap<>();
 		int totalPoints=0;
 		for(Transaction transaction : transactions) {
-			int points = RewardCalculator.calculatePoints(transaction.getAmount());
+			int points = calculatePoints(transaction.getAmount());
 			String month = transaction.getTransactionDate().getMonth().toString();
 			montlyPoints.put(month, montlyPoints.getOrDefault(month, 0) + points);
 			totalPoints += points;
 		}
 		return new RewardSummaryDTO(customerId, montlyPoints, totalPoints);
+	}
+
+	public static int calculatePoints(double amount) {
+		int points = 0;
+		if(amount > 100) {
+			points += (int)(amount-100)*2;
+			points += 50;
+		}else if(amount > 50) {
+			points += (int)(amount-50);
+		}
+		return points;
 	}
 }
