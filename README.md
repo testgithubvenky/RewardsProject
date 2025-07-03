@@ -1,7 +1,8 @@
 # RewardsProject
+================
 #  Rewards Program API
 
-This is a Spring Boot-based RESTful API for a customer rewards program. It tracks customer transactions and calculates reward points based on transaction amounts. The system provides endpoints to retrieve transaction history and reward summaries for individual customers.
+This is a Spring Boot-based RESTful API for a customer rewards program. It tracks customer transactions and calculates reward points based on transaction amounts. The system provides endpoints to retrieve transaction history and reward points for individual customers.
 
 ##  Features
 
@@ -20,7 +21,7 @@ This is a Spring Boot-based RESTful API for a customer rewards program. It track
 
 ##  Reward Calculation Logic
 
-Reward points are calculated based on the amount spent in a transaction. The logic is encapsulated in a utility class `RewardCalculator` (not shown here). Typically, the rules might be:
+Reward points are calculated based on the amount spent in a transaction. Typically, the rules might be:
 
 - 2 points for every dollar spent over $100
 - 1 point for every dollar spent over $50 up to $100
@@ -29,10 +30,9 @@ Reward points are calculated based on the amount spent in a transaction. The log
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/rewards/transactions/recent` | Get all transactions from the last 3 months |
-| `GET` | `/rewards/transactions/{customerId}` | Get all transactions for a specific customer |
-| `GET` | `/rewards/transactions/{customerId}/{month}` | Get transactions for a customer in a specific month (`YYYY-MM` format) |
-| `GET` | `/rewards/summary/{customerId}` | Get reward summary (monthly and total points) for a customer |
+| `GET` | `/transactions/recent` | Get all transactions from the last 3 months |
+| `GET` | `/transactions/{customerId}`| Get all transactions for a customer. If month is provided, filters by that month. Example : /transactions/customer/101?month=2025-06 |
+| `GET` | `/transactions/rewards/{customerId}` | Get rewards (monthly and total points) for a customer |
 
 ##  Technologies Used
 
@@ -48,9 +48,52 @@ Reward points are calculated based on the amount spent in a transaction. The log
 1. Clone the repository
 2. Configure your database in `application.properties`
 3. Run the application using your IDE or `mvn spring-boot:run`
-4. Access the API at `http://localhost:8080/rewards/`
+4. Access the API at `http://localhost:8080/transactions/`
 
-## Notes
+##  Sample Json Responses
 
-- Ensure the `RewardCalculator` class is implemented and injected properly.
-- Exception handling is done using a custom `ResourceNotFoundException`.
+1.**Endpoint: GET /transactions/recent  **
+==========================================
+**Response Example:**
+[
+  {
+    "id": 1,
+    "customerId": 101,
+    "amount": 120.0,
+    "transactionDate": "2025-06-15"
+  },
+  {
+    "id": 2,
+    "customerId": 102,
+    "amount": 75.0,
+    "transactionDate": "2025-05-10"
+  }
+]
+
+2.**Endpoint: GET /transactions/customer/{customerId}**
+=======================================================
+**Request Example:**
+GET /transactions/customer/101?month=2025-06
+**Response Example:**
+[
+  {
+    "id": 1,
+    "customerId": 101,
+    "amount": 120.0,
+    "transactionDate": "2025-06-15"
+  }
+]
+
+3.**Endpoint: GET /transactions/rewards/{customerId}**
+======================================================
+**Response Example:**
+{
+  "customerId": 101,
+  "monthlyPoints": {
+    "JUNE": 90,
+    "MAY": 25
+  },
+  "totalPoints": 115
+}
+
+
