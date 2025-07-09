@@ -75,25 +75,25 @@ Reward points are calculated based on the amount spent in a transaction. Typical
 **Request Example:**
 GET /transactions/customer/101?month=2025-06
 **Response Example:**
-```[
+[
   {
     "id": 1,
     "customerId": 101,
     "amount": 120.0,
     "transactionDate": "2025-06-15"
   }
-]```
+]
 
 3.**Endpoint: GET /transactions/rewards/{customerId}**
 ======================================================
 **Response Example:**
-```{
+{
   "customerId": 101,
   "monthlyPoints": {
     "JUNE": 90,
     "MAY": 25
   },
   "totalPoints": 115
-}```
+}
 
 
