@@ -52,10 +52,10 @@ Reward points are calculated based on the amount spent in a transaction. Typical
 
 ##  Sample Json Responses
 
-```1.**Endpoint: GET /transactions/recent  **
+1.**Endpoint: GET /transactions/recent  **
 ==========================================
 **Response Example:**
-[
+```[
  {
   "id": 1,
   "customerId": 101,
@@ -68,26 +68,26 @@ Reward points are calculated based on the amount spent in a transaction. Typical
   "amount": 75.0,
   "transactionDate": "2025-05-10"
  }
-]
+]```
 
 2.**Endpoint: GET /transactions/customer/{customerId}**
 =======================================================
 **Request Example:**
 GET /transactions/customer/101?month=2025-06
 **Response Example:**
-[
+```[
   {
     "id": 1,
     "customerId": 101,
     "amount": 120.0,
     "transactionDate": "2025-06-15"
   }
-]
+]```
 
 3.**Endpoint: GET /transactions/rewards/{customerId}**
 ======================================================
 **Response Example:**
-{
+```{
   "customerId": 101,
   "monthlyPoints": {
     "JUNE": 90,
