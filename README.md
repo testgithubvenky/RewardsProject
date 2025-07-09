@@ -1,5 +1,5 @@
 # RewardsProject
-================
+========================
 #  Rewards Program API
 
 This is a Spring Boot-based RESTful API for a customer rewards program. It tracks customer transactions and calculates reward points based on transaction amounts. The system provides endpoints to retrieve transaction history and reward points for individual customers.
@@ -52,10 +52,10 @@ Reward points are calculated based on the amount spent in a transaction. Typical
 
 ##  Sample Json Responses
 
-1.**Endpoint: GET /transactions/recent  **
+```1.**Endpoint: GET /transactions/recent  **
 ==========================================
 **Response Example:**
-```[
+[
  {
   "id": 1,
   "customerId": 101,
@@ -68,7 +68,7 @@ Reward points are calculated based on the amount spent in a transaction. Typical
   "amount": 75.0,
   "transactionDate": "2025-05-10"
  }
-]```
+]
 
 2.**Endpoint: GET /transactions/customer/{customerId}**
 =======================================================
@@ -94,6 +94,6 @@ GET /transactions/customer/101?month=2025-06
     "MAY": 25
   },
   "totalPoints": 115
-}
+}```
 
 
