@@ -56,19 +56,19 @@ Reward points are calculated based on the amount spent in a transaction. Typical
 ==========================================
 **Response Example:**
 [
-  {
-    "id": 1,
-    "customerId": 101,
-    "amount": 120.0,
-    "transactionDate": "2025-06-15"
-  },
-  {
-    "id": 2,
-    "customerId": 102,
-    "amount": 75.0,
-    "transactionDate": "2025-05-10"
-  }
-]
+ {
+  "id": 1,
+  "customerId": 101,
+  "amount": 120.0,
+  "transactionDate": "2025-06-15"
+ },
+ {
+  "id": 2,
+  "customerId": 102,
+  "amount": 75.0,
+  "transactionDate": "2025-05-10"
+ }
+] 
 
 2.**Endpoint: GET /transactions/customer/{customerId}**
 =======================================================
