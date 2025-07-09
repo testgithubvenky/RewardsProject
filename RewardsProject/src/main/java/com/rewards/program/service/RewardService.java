@@ -38,6 +38,10 @@ public class RewardService {
 	public List<Transaction> getCustomerTransactionsByMonth(Long customerId, YearMonth month){
 		LocalDate startDate = month.atDay(1);
 		LocalDate endDate = month.atEndOfMonth();
+		 // Defensive check
+	    if (startDate.isAfter(endDate)) {
+	        throw new IllegalArgumentException("Start date " + startDate + " is after end date " + endDate + ". Please check the input month.");
+	    }
 		List <Transaction> transactions = transactionRepository.findByCustomerIdAndTransactionDateBetween(customerId, startDate, endDate);
 		if(transactions.isEmpty() || null == transactions) {
 			throw new ResourceNotFoundException("No Transactions found for customerId : " + customerId + " in " + month);
@@ -55,7 +59,7 @@ public class RewardService {
 			montlyPoints.put(month, montlyPoints.getOrDefault(month, 0) + points);
 			totalPoints += points;
 		}
-		return new RewardSummaryDTO(customerId, montlyPoints, totalPoints);
+		return new RewardSummaryDTO(customerId, montlyPoints, totalPoints, transactions);
 	}
 
 	public static int calculatePoints(double amount) {

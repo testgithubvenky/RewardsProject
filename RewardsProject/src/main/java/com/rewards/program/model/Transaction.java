@@ -29,8 +29,9 @@ public class Transaction {
 	public Transaction() {
 		super();
 	}
-	public Transaction(Long customerId, Double amount, LocalDate transactionDate) {
+	public Transaction(Long id, Long customerId, LocalDate transactionDate,Double amount) {
 		super();
+		this.id = id;
 		this.customerId = customerId;
 		this.amount = amount;
 		this.transactionDate = transactionDate;

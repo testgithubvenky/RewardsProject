@@ -1,17 +1,21 @@
 package com.rewards.program.DTO;
 
+import java.util.List;
 import java.util.Map;
+import com.rewards.program.model.Transaction;
 
 public class RewardSummaryDTO {
 	
 	private Long customerId;
 	private Map<String, Integer> monthlyPoints;
 	private int totalPoints;
-	public RewardSummaryDTO(Long customerId, Map<String, Integer> monthlyPoints, int totalPoints) {
+	private List<Transaction> transactions;
+	public RewardSummaryDTO(Long customerId, Map<String, Integer> monthlyPoints, int totalPoints, List<Transaction> transactions) {
 		super();
 		this.customerId = customerId;
 		this.monthlyPoints = monthlyPoints;
 		this.totalPoints = totalPoints;
+		this.transactions = transactions;
 	}	
 	public Long getCustomerId() {
 		return customerId;
@@ -30,5 +34,11 @@ public class RewardSummaryDTO {
 	}
 	public void setTotalPoints(int totalPoints) {
 		this.totalPoints = totalPoints;
+	}
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 }
